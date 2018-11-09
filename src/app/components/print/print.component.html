@@ -1,0 +1,155 @@
+<div class="breadcrumb-holder">
+  <div class="container-fluid">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="">Trang chủ</a>
+      </li>
+      <li class="breadcrumb-item active">In Đề</li>
+    </ul>
+  </div>
+</div>
+
+<section>
+  <div class="container-fluid">
+    <!-- Page Header-->
+    <header>
+      <h1 class="h3 display">Đề Thi</h1>
+    </header>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="course">
+                    <strong>Môn Học</strong>
+                  </label>
+                  <select id="course" name="course" class="form-control select2" >
+                          <option></option>
+                          <option *ngFor="let course of course" [value]=course.cid>{{course.cname}}</option>
+                        </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="test">
+                    <strong>Bài Kiểm Tra</strong>
+                  </label>
+                  <select id="test" name="test" class="form-control select2" >
+                            <option></option>
+                            <option *ngFor="let test of test" [value]=test.testid>{{test.testname}}</option>
+                          </select>
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <div class="form-group">
+                  <label for="show">
+                    <strong></strong>
+                  </label>
+                  <button (click)="show()" id="show" name="show-exam" class="form-control btn-success mt-2">
+                    Hiển Thị
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <div class="form-group">
+                  <label for="add">
+                    <strong></strong>
+                  </label>
+                  <button id="print" name="print-exam" class="form-control btn-success mt-2">
+                    In
+                  </button>
+                  <!-- <button   [disabled]="checkadd == '' || totalmarkcheck.Total >=10" (click)="search()" data-toggle="modal" data-target="#questionadd"  id="btn_add" name="btn_add" class="form-control mt-2 btn btn-primary btn_add" >
+                          Thêm
+                        </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container-fluid">
+    <!-- Page Header-->
+    <header>
+      <h1 class="h3 display">Chi Tiết Đề Thi</h1>
+    </header>
+    <div class="row" id="a">
+      <div style="-webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;">
+        <div class="card" style="border:none">
+          <div class="card-header" style="border:none">
+            <div class="row">
+              <div style="-webkit-box-flex: 0;
+                    -ms-flex: 0 0 50%;
+                    flex: 0 0 50%;
+                    max-width: 50%;">
+                <div class="form-group" style="text-align:center">
+                  <div>BỘ TÀI NGUYÊN VÀ MÔI TRƯỜNG</div>
+                  <div>TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG TP.HCM
+                    <div>KHOA {{testdata?.dept_name}}</div>
+                  </div>
+                </div>
+              </div>
+              <div style="-webkit-box-flex: 0;
+                      -ms-flex: 0 0 50%;
+                      flex: 0 0 50%;
+                      max-width: 50%;">
+                <div class="form-group" style="text-align:center">
+                  <div>ĐỀ THI HỌC PHẦN - HỆ ĐẠI HỌC CHÍNH QUY</div>
+                  <div>
+                    MÔN THI: {{testdata?.cname}} - HỌC KỲ: {{testdata?.sem}}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div style="-webkit-box-flex: 0;
+                -ms-flex: 0 0 100%;
+                flex: 0 0 100%;
+                max-width: 100%;">
+                  <div class="form-group" style="text-align:center;">
+                    <div>MÃ ĐỀ SỐ: {{testdata?.testname}}</div>
+                    <div><i>Thời Gian: {{testdata?.duration}} phút - Không kể thời gian phát đề</i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="questData">
+                  <div style="-webkit-box-flex: 0;
+                  -ms-flex: 0 0 50%;
+                  flex: 0 0 50%;
+                  max-width: 50%;"  *ngFor = "let questData of questData; let i = index;" [ngClass]="{'borderEdit': questData.qnid%2 !=0}">
+                  <div >
+                    <div class="form-group" *ngIf="questData && questData?.qnid %2 !=0">
+                      <div><b>Câu {{i+1}}:</b> {{questData?.question}} 
+                        <div>A. {{questData?.optiona}}</div>
+                        <div>B. {{questData?.optionb}}</div>
+                        <div>C. {{questData?.optionc}}</div>
+                        <div>D. {{questData?.optiond}}</div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="form-group" *ngIf="questData && questData?.qnid %2 ==0">
+                        <div style="margin-left:3%;"><b>Câu {{i+1}}:</b> {{questData?.question}} 
+                          <div>A. {{questData?.optiona}}</div>
+                          <div>B. {{questData?.optionb}}</div>
+                          <div>C. {{questData?.optionc}}</div>
+                          <div>D. {{questData?.optiond}}</div>
+                      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

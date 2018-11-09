@@ -1,0 +1,141 @@
+<!-- Breadcrumb-->
+<div class="breadcrumb-holder">
+  <div class="container-fluid">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
+      <li class="breadcrumb-item active">Câu Hỏi</li>
+    </ul>
+  </div>
+</div>
+<section>
+  <div class="container-fluid">
+    <!-- Page Header-->
+    <header>
+      <h1 class="h3 display">Câu Hỏi</h1>
+    </header>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+              <div class="row" >
+                  <div class="col-lg-4">
+                      <div class="form-group">
+                        <label for="course"><strong>Môn Học</strong></label>
+                        <select id="course" name="course" class="form-control select2" >
+                          <option></option>
+                          <option *ngFor="let course of course" [value]=course.cid>{{course.cname}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                          <label for="test"><strong>Bài Kiểm Tra</strong></label>
+                          <select id="test" name="test" class="form-control select2" >
+                            <option></option>
+                            <option *ngFor="let test of test" [value]=test.testid>{{test.testname}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label for="search"><strong></strong></label>
+                        <button (click)="search()" id="search" name="subject-e-exam" class="form-control btn-success mt-2" >
+                         Tìm
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-lg-2" *ngFor="let totalmarkcheck of totalmarkcheck">
+                      <div class="form-group" >
+                        <label for="add"><strong></strong></label>
+                        <button   [disabled]="checkadd == '' || totalmarkcheck.Total >=10" (click)="search()" data-toggle="modal" data-target="#questionadd"  id="btn_add" name="btn_add" class="form-control mt-2 btn btn-primary btn_add" >
+                          Thêm
+                        </button>
+                      </div>
+                    </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+          <section>
+            <div class="container-fluid">
+              <!--page header -->
+              <header>
+                <h1 class="h3 display">Chi Tiết Câu Hỏi</h1>
+              </header>
+              <!-- Example DataTables Card-->
+              <div class="card mb-3">
+                <div class="card-header">
+                  <h1 class="h3 display" *ngIf="check=='0'">Tổng Số Câu Hỏi:{{totalquestion}}/{{totaltest.totalquestions}}
+                    <h1 class="h3 display float-right" *ngFor="let totalmark of totalmark">Tổng Điểm: {{totalmark.Total}}/10.00</h1>
+                  </h1>
+                 
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="dataTable" width="100%">
+                      <thead>
+                        <tr>
+                            <th style="width: 5%;">#</th>
+                            <th>Câu Hỏi</th>
+                            <th>Đáp Án 1</th>
+                            <th>Đáp Án 2</th>
+                            <th>Đáp Án 3</th>
+                            <th>Đáp Án 4</th>
+                            <th>Đáp Án Chính Xác</th>
+                            <th>Cấp Độ</th>
+                            <th>Điểm</th>
+                            <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="modal fade" id="questionadd" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Thông Tin Chủ Đề</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  
+                </div>
+                <div class="modal-body" >
+                  <form >
+                      <h1 class="h3 display">Tổng Số Câu Hỏi:{{totalquestion}}/{{totaltest.totalquestions}}
+                          <h1 class="h3 display float-right" *ngFor="let totalmark of totalmark">Tổng Điểm: {{totalmark.Total}}/10.00</h1>
+                        </h1>
+                      <div class="form-group ">
+                          <input type="hidden" id="hideId" value="0">
+                          <label for="topic"><strong>Chủ Đề</strong></label>
+                          <select id="topic" name="topic" class="form-control select2" >
+                            <option *ngFor="let topic of topic" [value]=topic.tpid>{{topic.topicname}}</option>
+                          </select>
+                        </div>
+                      <div class="form-group">
+                          
+                        <label for="limit"><strong>Số câu lấy</strong></label>
+                          <input  type="number" class="form-control" [(ngModel)]="Question.limit" name="limit" id="limit"  required>
+                      </div>
+                      <div class="form-group ">
+                        <label for="marks"><strong>Điểm Mỗi Câu</strong></label>
+                         <input type="number" class="form-control" [(ngModel)]="Question.marks" name="marks" id="marks" required>
+                      </div>
+                      
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary"  (click)="Add()" data-dismiss="modal">Tạo</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                </div>
+              </div>
+            </div>
+          </div> 

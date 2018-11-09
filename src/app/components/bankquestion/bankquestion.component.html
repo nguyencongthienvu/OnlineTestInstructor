@@ -1,0 +1,266 @@
+ <!-- Breadcrumb-->
+ <div class="breadcrumb-holder">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Chủ Đề</li>
+      </ul>
+    </div>
+  </div>
+  <section>
+    <div class="container-fluid">
+      <!-- Page Header-->
+      <header>
+        <h1 class="h3 display">Chủ Đề</h1>
+      </header>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                          <label for="course"><strong>Môn Học</strong></label>
+                          <select id="course" name="course" class="form-control select2" >
+                            <option></option>
+                            <option *ngFor="let course of course" [value]=course.cid>{{course.cname}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                          <div class="form-group">
+                            <label for="topic"><strong>Chủ Đề</strong></label>
+                            <select id="topic" name="topic" class="form-control select2" >
+                              <option></option>
+                              <option *ngFor="let topic of topic" [value]=topic.tpid>{{topic.topicname}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label for="search"><strong></strong></label>
+                          <button (click)="search()" id="search" name="subject-e-exam" class="form-control btn-success mt-2" >
+                           Tìm
+                          </button>
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label for="add"><strong></strong></label>
+                          <button id="btn_add" name="subject-e-exam" class="form-control btn-success mt-2 btn_add" >
+                            Thêm
+                          </button>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="questionload" class="table table-bordered table-hover" width=100%>
+                  <thead>
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th>Câu Hỏi</th>
+                        <th>Đáp Án 1</th>
+                        <th>Đáp Án 2</th>
+                        <th>Đáp Án 3</th>
+                        <th>Đáp Án 4</th>
+                        <th>Đáp Án Chính Xác</th>
+                        <th>Cấp Độ</th>
+                        <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                   
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+   <div class="modal fade" id="questionadd" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered questionmodal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Thông Tin Môn Học</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            
+          </div>
+          <div class="modal-body">
+            <form >
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="hidden" id="hideId" value="0">
+                  <label for="question"><strong>Câu hỏi</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="BankQuestion.question" name="question" id="question" required>
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="optiona"><strong>Đáp Án 1</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="BankQuestion.optiona" name="optiona" id="optiona" required>
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group ">
+                        <label for="optionb"><strong>Đáp Án 2</strong></label>
+                        <input type="text" class="form-control" [(ngModel)]="BankQuestion.optionb" name="optionb" id="optionb" required>
+                </div>
+                </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="optionc"><strong>Đáp Án 3</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="BankQuestion.optionc" name="optionc" id="optionc" required>
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="optiond"><strong>Đáp Án 4</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="BankQuestion.optiond" name="optiond" id="optiond" required>
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="correctanswer" ><strong>Đáp Án Đúng</strong></label>
+                    <select name="correctanswer" class="form-control select2" [(ngModel)]="BankQuestion.correctanswer" id="correctanswer" required>
+                        <option value="optiona">Đáp Án 1</option> 
+                        <option value="optionb">Đáp Án 2</option>   
+                        <option value="optionc">Đáp Án 3</option>   
+                        <option value="optiond">Đáp Án 4</option>          
+                      </select>
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="level" ><strong>Cấp Độ</strong></label>
+                    <select name="level" class="form-control select2" [(ngModel)]="BankQuestion.level" id="level" required>
+                        <option value="0">Dễ</option> 
+                        <option value="1">Trung Bình</option>   
+                        <option value="2">Khó</option>           
+                      </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="course"><strong>Môn Học</strong></label>
+                    <select id="course2" name="course" class="form-control select2" >
+                      <option></option>
+                      <option *ngFor="let course of course" [value]=course.cid>{{course.cname}}</option>
+                    </select>
+                  </div>
+                </div>
+                
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group ">
+                            <label for="topic" ><strong>Chủ Đề</strong></label>
+                            <select name="topic" class="form-control select2" [(ngModel)]="BankQuestion.topic" id="topic2" required>
+                                <option *ngFor="let topic of topicadd" [value]=topic.tpid>{{topic.topicname}}</option>        
+                              </select>
+                          </div>
+                    </div>
+                      </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"  (click)="onSubmit()" data-dismiss="modal">Thêm</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <div class="modal fade" id="questionedit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered questionmodal" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Thông Tin Môn Học</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              
+            </div>
+            <div class="modal-body">
+              <form >
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <input type="hidden" id="hideId" value="0">
+                    <label for="question"><strong>Câu hỏi</strong></label>
+                      <input type="text" class="form-control" [(ngModel)]="BankQuestion.question" name="question" id="question2" required>
+                  </div>
+                </div>
+                  <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="optiona"><strong>Đáp Án 1</strong></label>
+                      <input type="text" class="form-control" [(ngModel)]="BankQuestion.optiona" name="optiona" id="optiona2" required>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group ">
+                          <label for="optionb"><strong>Đáp Án 2</strong></label>
+                          <input type="text" class="form-control" [(ngModel)]="BankQuestion.optionb" name="optionb" id="optionb2" required>
+                  </div>
+                  </div>
+                  <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="optionc"><strong>Đáp Án 3</strong></label>
+                      <input type="text" class="form-control" [(ngModel)]="BankQuestion.optionc" name="optionc" id="optionc2" required>
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="optiond"><strong>Đáp Án 4</strong></label>
+                      <input type="text" class="form-control" [(ngModel)]="BankQuestion.optiond" name="optiond" id="optiond2" required>
+                  </div>
+                </div>
+                  <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="correctanswer" ><strong>Đáp Án Đúng</strong></label>
+                      <select name="correctanswer" class="form-control select2" [(ngModel)]="BankQuestion.correctanswer" id="correctanswer2" required>
+                          <option value="optiona">Đáp Án 1</option> 
+                          <option value="optionb">Đáp Án 2</option>   
+                          <option value="optionc">Đáp Án 3</option>   
+                          <option value="optiond">Đáp Án 4</option>          
+                        </select>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="level" ><strong>Cấp Độ</strong></label>
+                      <select name="level" class="form-control select2" [(ngModel)]="BankQuestion.level" id="level2" required>
+                          <option value="0">Dễ</option> 
+                          <option value="1">Trung Bình</option>   
+                          <option value="2">Khó</option>           
+                        </select>
+                  </div>
+                </div>                
+                  </div>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary"  (click)="Edit()" data-dismiss="modal">Thêm</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+            </div>
+          </div>
+        </div>
+      </div>

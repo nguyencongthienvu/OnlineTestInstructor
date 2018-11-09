@@ -1,0 +1,205 @@
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="home" (click)="backhome()">Trang Chủ</a></li>
+        <li class="breadcrumb-item active">Môn Học</li>
+      </ul>
+    </div>
+  </div>
+  
+  <section>
+    <div class="container-fluid">
+      <!--page header -->
+      <header>
+        <h1 class="h3 display">Môn Học</h1>
+      </header>
+      <!-- Example DataTables Card-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <button type="button" class="btn btn-primary fa fa-plus text-light float-right btn_add" >
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Mã Học Phần</th>
+                  <th>Tên Học Phần</th>
+                  <th>Mã Môn Học</th>
+                  <th>Tên Môn Học</th>
+                  <th>Tín Chỉ</th>
+                  <th>Năm</th>
+                  <th>Học Kỳ</th>
+                  <th>Khoa</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- modal add course -->
+  <div class="modal fade" id="departmentadd" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered coursemodal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Thông Tin Môn Học</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            
+          </div>
+          <div class="modal-body">
+            <form >
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="hidden" id="hideId" value="0">
+                  <label for="username"><strong>Mã Học Phần</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="Course.mcode" name="mcode" id="mcode" required>
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="username"><strong>Tên Học Phần</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="Course.mname" name="mname" id="mname" required>
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group ">
+                  <label for="department" ><strong>Khoa</strong></label>
+                  <select name="department" class="form-control select2" [(ngModel)]="Course.department" id="department" required>
+                      <option *ngFor="let department of department" [value]=department.deptid>{{department.dept_name}}</option>        
+                    </select>
+                </div>
+                </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="username"><strong>Mã Môn Học</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="Course.ccode" name="ccode" id="ccode" required>
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="username"><strong>Tên Môn Học</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="Course.cname" name="cname" id="cname" required>
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="username"><strong>Tín Chỉ</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="Course.ects" name="ects" id="ects" required>
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="username"><strong>Năm</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="Course.year" name="year" id="year" required>
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="username"><strong>Học Kỳ</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="Course.sem" name="sem" id="sem" required>
+                </div>
+                </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"  (click)="onSubmit()" data-dismiss="modal">Thêm</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <!-- modal add course -->
+  <div class="modal fade" id="courseedit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered coursemodal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Thông Tin Môn Học</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          
+        </div>
+        <div class="modal-body">
+          <form >
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input type="hidden" id="hideId2" value="0">
+                <label for="username"><strong>Mã Học Phần</strong></label>
+                  <input type="text" class="form-control" [(ngModel)]="Course.mcode" name="mcode" id="mcode2" required>
+              </div>
+            </div>
+              <div class="col-lg-6">
+              <div class="form-group">
+                <label for="username"><strong>Tên Học Phần</strong></label>
+                  <input type="text" class="form-control" [(ngModel)]="Course.mname" name="mname" id="mname2" required>
+              </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group ">
+                <input type="hidden" class="form-control" [(ngModel)]="Course.deptid" name="department" id="department2" required>
+              </div>
+              </div>
+              <div class="col-lg-6">
+              <div class="form-group">
+                <label for="username"><strong>Mã Môn Học</strong></label>
+                  <input type="text" class="form-control" [(ngModel)]="Course.ccode" name="ccode" id="ccode2" required>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+              <div class="form-group">
+                <label for="username"><strong>Tên Môn Học</strong></label>
+                  <input type="text" class="form-control" [(ngModel)]="Course.cname" name="cname" id="cname2" required>
+              </div>
+            </div>
+              <div class="col-lg-6">
+              <div class="form-group">
+                <label for="username"><strong>Tín Chỉ</strong></label>
+                  <input type="text" class="form-control" [(ngModel)]="Course.ects" name="ects" id="ects2" required>
+              </div>
+              </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-6">
+              <div class="form-group">
+                <label for="username"><strong>Năm</strong></label>
+                  <input type="text" class="form-control" [(ngModel)]="Course.year" name="year" id="year2" required>
+              </div>
+            </div>
+              <div class="col-lg-6">
+              <div class="form-group">
+                <label for="username"><strong>Học Kỳ</strong></label>
+                  <input type="text" class="form-control" [(ngModel)]="Course.sem" name="sem" id="sem2" required>
+              </div>
+              </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary"  (click)="Edit()" data-dismiss="modal">Thêm</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+        </div>
+      </div>
+    </div>
+  </div> 

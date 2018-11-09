@@ -1,0 +1,235 @@
+ <!-- Breadcrumb-->
+ <div class="breadcrumb-holder">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Kiểm Tra</li>
+      </ul>
+    </div>
+  </div>
+  <section>
+      <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+          <h1 class="h3 display">Chủ Đề</h1>
+        </header>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                  <div class="row">
+                      <div class="col-lg-2">
+                          <div class="form-group">
+                            <label for="course"><strong>Môn Học</strong></label>
+                            <select id="course" name="course" class="form-control select2" >
+                                <option></option>
+                              <option *ngFor="let course of course" [value]=course.cid>{{course.cname}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="form-group">
+                            <label for="search"><strong></strong></label>
+                            <button (click)="search()" id="search" name="subject-e-exam" class="form-control btn-success mt-2" >
+                             Tìm
+                            </button>
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="form-group">
+                            <label for="add"><strong></strong></label>
+                            <button id="btn_add" name="subject-e-exam" class="form-control btn-success mt-2 btn_add" >
+                              Thêm
+                            </button>
+                          </div>
+                        </div>
+                  </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table id="testload" class="table table-bordered table-hover" width=100%>
+                    <thead>
+                      <tr>
+                          <th style="width: 5%;">#</th>
+                          <th>Mã Đề Kiểm Tra</th>
+                          <th>Chú Thích</th>
+                          <th>Ngày Kiểm Tra</th>
+                          <th>Thời Gian Kiểm Tra</th>
+                          <th>Kiểm Từ</th>
+                          <th>Kiểm Đến</th>
+                          <th>Giới Hạn</th>
+                          <th>Tổng câu hỏi</th>
+                          <th>Mã Code</th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="testadd" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered questionmodal" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Thông Tin Bài Kiểm Tra</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              
+            </div>
+            <div class="modal-body">
+              <form >
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <input type="hidden" id="hideId" value="0">
+                      <label for="course"><strong>Môn Học</strong></label>
+                      <select id="course2" name="course" class="form-control select2" >
+                          <option></option>
+                        <option *ngFor="let course of course" [value]=course.cid>{{course.cname}}</option>
+                      </select>
+                  </div>
+                </div>
+                  <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="testname"><strong>Tên Bài Kiểm Tra</strong></label>
+                      <input type="text" class="form-control" [(ngModel)]="Test.testname" name="testname" id="testname" required>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group ">
+                          <label for="testfrom"><strong>Kiểm Từ</strong></label>
+                          <input type="datetime-local" class="form-control" [(ngModel)]="Test.testfrom" name="testfrom" id="testfrom" required>
+                  </div>
+                  </div>
+                  <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="testto"><strong>Kiểm Đến</strong></label>
+                      <input type="datetime-local" class="form-control" [(ngModel)]="Test.testto" name="testto" id="testto" required>
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="duration"><strong>Giới Hạn</strong></label>
+                      <input type="text" class="form-control" [(ngModel)]="Test.duration" name="duration" id="duration" required>
+                  </div>
+                </div>
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                          <label for="totalquestions"><strong>Tổng Câu Hỏi</strong></label>
+                          <input type="text" class="form-control" [(ngModel)]="Test.totalquestions" name="totalquestions" id="totalquestions" required>
+                      </div>
+                  </div>
+                  </div> 
+                 <div class="row">
+                      <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="code"><strong>Mã Code</strong></label>
+                      <input type="text" class="form-control" [(ngModel)]="Test.code" name="code" id="code" required>
+                  </div>
+                </div>   
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="description"><strong>Chú Thích</strong></label>
+                        <input type="text" class="form-control" [(ngModel)]="Test.description" name="description" id="description" required>
+                    </div>
+                  </div>               
+                  </div>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary"  (click)="Add()" data-dismiss="modal">Thêm</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="testedit" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered questionmodal" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Thông Tin Bài Kiểm Tra</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                
+              </div>
+              <div class="modal-body">
+                <form >
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input type="hidden" id="hideId2" value="0">
+                    </div>
+                  </div>
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="testname"><strong>Tên Bài Kiểm Tra</strong></label>
+                        <input type="text" class="form-control" [(ngModel)]="Test.testname" name="testname" id="testname2" required>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group ">
+                            <label for="testfrom"><strong>Kiểm Từ</strong></label>
+                            <input type="datetime-local" class="form-control" [(ngModel)]="Test.testfrom" name="testfrom" id="testfrom2" required>
+                    </div>
+                    </div>
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="testto"><strong>Kiểm Đến</strong></label>
+                        <input type="datetime-local" class="form-control" [(ngModel)]="Test.testto" name="testto" id="testto2" required>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="duration"><strong>Giới Hạn</strong></label>
+                        <input type="text" class="form-control" [(ngModel)]="Test.duration" name="duration" id="duration2" required>
+                    </div>
+                  </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="totalquestions"><strong>Tổng Câu Hỏi</strong></label>
+                            <input type="text" class="form-control" [(ngModel)]="Test.totalquestions" name="totalquestions" id="totalquestions2" required>
+                        </div>
+                    </div>
+                    </div> 
+                   <div class="row">
+                        <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="code"><strong>Mã Code</strong></label>
+                        <input type="text" class="form-control" [(ngModel)]="Test.code" name="code" id="code2" required>
+                    </div>
+                  </div>   
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                          <label for="description"><strong>Chú Thích</strong></label>
+                          <input type="text" class="form-control" [(ngModel)]="Test.description" name="description" id="description2" required>
+                      </div>
+                    </div>               
+                    </div>
+  
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary"  (click)="Edit()" data-dismiss="modal">Thêm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+              </div>
+            </div>
+          </div>
+        </div>
