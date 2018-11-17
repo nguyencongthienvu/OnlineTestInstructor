@@ -34,7 +34,8 @@ export class QuestionComponent implements OnInit {
     this.list_data_course();
     this.pnotify = pnotifyService.getPNotify();
   }
-  Add()
+
+  private Add()
   {
     const token = localStorage.getItem('token');
     this.Question = {
@@ -52,11 +53,9 @@ export class QuestionComponent implements OnInit {
       this.logout();
     }else{
     if (token) {
-      this.getQuestion.GetTotalMark(this.Test,token).then((totalmarkcheck)=>{
-        if(totalmarkcheck.json().errorCode==0)
-        { 
-          this.totalmarkcheck = totalmarkcheck.json().data;
-          if(this.totalmarkcheck.findIndex(i=>i.Total<10)!=-1)
+      const TotalQuest = this.totaltest.totalquestions-this.totalquestion;
+      const TotalMark = 10 - this.totalmark[0].Total;
+      if(($("#marks").val()*$("#limit").val()) <= TotalMark && $("#limit").val() <= TotalQuest)
           {
             this.getQuestion.GenerateQuestion(this.Question,token).then((data) => {
               if(data.json().errorCode==0)
@@ -66,6 +65,13 @@ export class QuestionComponent implements OnInit {
                   delay:1000
                 });
                 this.search();
+                this.getQuestion.GetTotalMark(this.Test,token).then((totalmarkcheck)=>{
+                  if(totalmarkcheck.json().errorCode==0)
+                  { 
+                    this.totalmarkcheck = totalmarkcheck.json().data;
+    
+                  }
+                })
               }
               else if(data.json().status === 'fail')
               {
@@ -88,52 +94,24 @@ export class QuestionComponent implements OnInit {
               console.log(err);
             });
           }
-          else if(this.totalmarkcheck.findIndex(i=>i.Total>=10)!=-1)
+          else if(($("#marks").val()*$("#limit").val()) > TotalMark)
           {
             this.pnotify.error({
               text: "Không Thể Tạo Câu Hỏi.Tổng Điểm Vượt 10 !",
               delay:2000   
             });
           }
-          else if(this.totalmarkcheck.findIndex(i=>i.Total==null)!=-1)
-          {
-            this.getQuestion.GenerateQuestion(this.Question,token).then((data) => {
-              if(data.json().errorCode==0)
-              {
-                this.pnotify.success({
-                  text: "Tạo Câu Hỏi Thành Công !",
-                  delay:1000
-                });
-              }
-              else if(data.json().status === 'fail')
-              {
-                this.logout();
-                this.pnotify.error({
-                  text: "Phiên làm việc hết hạn.Vui lòng đăng nhập lại",
-                  delay:2000   
-                });
-              }
-              else
-              {
-                this.pnotify.error({
-                  text: "Không Thể Tạo Câu Hỏi.",
-                  delay:2000   
-                });
-                tbl.clear().draw();
-                tbl.columns.adjust().draw();
-              }
-            }).catch((err) => {
-              console.log(err);
+          else if($("#limit").val() > TotalQuest) {
+            this.pnotify.error({
+              text: "Không Thể Tạo Câu Hỏi.Số câu hỏi vượt quá số câu hỏi đề cho phép !",
+              delay:2000   
             });
-          }
-        }
-       
-      })
-        
+          }   
+      }
     }
   }
-  }
-  search()
+
+  private search()
   {
     const token = localStorage.getItem('token');
     this.Test = {
@@ -197,16 +175,19 @@ export class QuestionComponent implements OnInit {
     }
   }
   }
-  backhome()
+
+  public backhome()
   {
     this.router.navigate(['/home']);  
   }
+
   //dang xuat
-  logout()
+  public logout()
   {
     this.router.navigateByUrl('/login');
   }
-   list_data_course(){
+
+  private list_data_course(){
     const token = localStorage.getItem('token');
     if(token == '' || token == null)
     {
@@ -241,6 +222,7 @@ export class QuestionComponent implements OnInit {
     }
   }
 }
+
   ngOnInit() {
     self=this;
     $('#course').select2({

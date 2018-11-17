@@ -47,7 +47,7 @@
                     <div class="col-lg-2" *ngFor="let totalmarkcheck of totalmarkcheck">
                       <div class="form-group" >
                         <label for="add"><strong></strong></label>
-                        <button   [disabled]="checkadd == '' || totalmarkcheck.Total >=10" (click)="search()" data-toggle="modal" data-target="#questionadd"  id="btn_add" name="btn_add" class="form-control mt-2 btn btn-primary btn_add" >
+                        <button   [disabled]="checkadd == '' || totalmarkcheck.Total >=10 || totalquestion > totaltest.totalquestions" (click)="search()" data-toggle="modal" data-target="#questionadd"  id="btn_add" name="btn_add" class="form-control mt-2 btn btn-primary btn_add" >
                           Thêm
                         </button>
                       </div>

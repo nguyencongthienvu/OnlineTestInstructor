@@ -19,7 +19,6 @@ export class QuestionService {
   }
   GenerateQuestion(Question:Question,token)
   {
-    console.log(Question)
     let url: string = `${this.url.BASE_URL}/question/generate`;
     let headers: Headers = new Headers({
       'Content-Type': 'application/json',
