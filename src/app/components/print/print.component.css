@@ -1,3 +1,17 @@
-.borderEdit {
+.borderEditLeft {
     border-right: solid !important;
+}
+
+.borderEditRight {
+    border-left:solid !important;
+  }
+
+.A4 {
+    width: 280mm;
+}
+
+.color-button {
+  color: white;
+  background-color: Blue;
+  border-color: Blue;
 }

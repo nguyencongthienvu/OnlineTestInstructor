@@ -30,6 +30,9 @@ export class PrintComponent implements OnInit {
   testdata:any=[];
   Test: Test = new Test();
   Topic: Topic = new Topic();
+  showButton: boolean = false;
+  leftData: boolean = false;
+  rightData: boolean = false;
   Question:Question = new Question();
   constructor(private router: Router,private getcourse: CourseServiceService, pnotifyService: PnotifyService,private getTest: TestService,private getQuestion:QuestionService) {
     this.list_data_course();
@@ -90,7 +93,15 @@ export class PrintComponent implements OnInit {
         if(data.json().errorCode==0)
         {
           this.questData = data.json().data;
-          
+          this.showButton = true; 
+          if ($('#leftData').height() >= $('#rightData').height())
+          {
+            this.rightData = false;
+            this.leftData = true;
+          } else if ($('#leftData').height() < $('#rightData').height()) {
+            this.rightData = true;
+            this.leftData = false;
+          }
         }
         else if(data.json().status === 'fail')
         {
@@ -162,8 +173,41 @@ export class PrintComponent implements OnInit {
   }
 }
 
+public print() {
+  if ($('#leftData').height() >= $('#rightData').height())
+  {
+    this.rightData = false;
+    this.leftData = true;
+  } else if ($('#leftData').height() < $('#rightData').height()) {
+    this.rightData = true;
+    this.leftData = false;
+  }
+}
+
+public doPrint() {
+  var divToPrint=document.getElementById('a');
+  Popupaaa(divToPrint.innerHTML);
+ function Popupaaa(data) {
+   var mywindow = window.open('', 'new div', 'height=400,width=600');
+   mywindow.document.write(`<html><head><title></title>`);
+   mywindow.document.write('<link rel="stylesheet" href="../../../assets/vendor/bootstrap/css/bootstrap.css" type="text/css"/>');
+   mywindow.document.write('</head><body >');
+   mywindow.document.write('<link rel="stylesheet" href="../../../styles.css" type="text/css" />');
+   mywindow.document.write(data);
+   mywindow.document.write('</body></html>');
+   mywindow.document.close();
+   mywindow.focus();
+   setTimeout(function(){mywindow.print();},1000);
+   return true;
+ }
+}
+
   ngOnInit() {
     self=this;
+
+    $('#test').on('change', function(){
+      self.showButton = false;
+    });
 
     $('#course').select2({
       placeholder:'Chọn môn học'
@@ -213,38 +257,6 @@ export class PrintComponent implements OnInit {
       }
     }
       });
-
-    $('#print').on('click', function(){
-      var divToPrint=document.getElementById('a');
-
-                  // var newWin=window.open('','Print-Window');
-
-                  // newWin.document.open();
-
-                  // newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
-
-                  // newWin.document.close();
-
-                  // setTimeout(function(){newWin.close();},10);
-                  Popupaaa(divToPrint.innerHTML);
-                  
-    });
-
-    function Popupaaa(data) {
-      var mywindow = window.open('', 'new div', 'height=400,width=600');
-      mywindow.document.write(`<html><head><title></title>`);
-      mywindow.document.write('<link rel="stylesheet" href="../../../assets/vendor/bootstrap/css/bootstrap.css" type="text/css"/>');
-      mywindow.document.write('</head><body >');
-      mywindow.document.write('<link rel="stylesheet" href="../../../styles.css" type="text/css" />');
-      mywindow.document.write(data);
-      mywindow.document.write('</body></html>');
-      mywindow.document.close();
-      mywindow.focus();
-      setTimeout(function(){mywindow.print();},1000);
-    // mywindow.close();
-  
-      return true;
-    }
   }
 
 }

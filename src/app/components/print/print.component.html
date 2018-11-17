@@ -52,13 +52,13 @@
                   </button>
                 </div>
               </div>
-              <div class="col-lg-2">
+              <div class="col-lg-2" *ngIf="showButton">
                 <div class="form-group">
                   <label for="add">
                     <strong></strong>
                   </label>
-                  <button id="print" name="print-exam" class="form-control btn-success mt-2">
-                    In
+                  <button (click) = "print()" class="form-control btn-success mt-2">
+                    Sửa Style
                   </button>
                   <!-- <button   [disabled]="checkadd == '' || totalmarkcheck.Total >=10" (click)="search()" data-toggle="modal" data-target="#questionadd"  id="btn_add" name="btn_add" class="form-control mt-2 btn btn-primary btn_add" >
                           Thêm
@@ -78,13 +78,26 @@
     <!-- Page Header-->
     <header>
       <h1 class="h3 display">Chi Tiết Đề Thi</h1>
+      <div class="col-lg-2" *ngIf="showButton">
+        <div class="form-group">
+          <label for="add">
+            <strong></strong>
+          </label>
+          <button (click) = "doPrint()" id="print" name="print-exam" class="form-control color-button mt-2">
+            In
+          </button>
+          <!-- <button   [disabled]="checkadd == '' || totalmarkcheck.Total >=10" (click)="search()" data-toggle="modal" data-target="#questionadd"  id="btn_add" name="btn_add" class="form-control mt-2 btn btn-primary btn_add" >
+                  Thêm
+                </button> -->
+        </div>
+      </div>
     </header>
     <div class="row" id="a">
       <div style="-webkit-box-flex: 0;
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%;">
-        <div class="card" style="border:none">
+        <div class="card" style="border:none" [ngClass]="{'A4': true}">
           <div class="card-header" style="border:none">
             <div class="row">
               <div style="-webkit-box-flex: 0;
@@ -92,8 +105,8 @@
                     flex: 0 0 50%;
                     max-width: 50%;">
                 <div class="form-group" style="text-align:center">
-                  <div>BỘ TÀI NGUYÊN VÀ MÔI TRƯỜNG</div>
-                  <div>TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG TP.HCM
+                  <div>HỒ CHÍ MINH ACADEMY</div>
+                  <div>HỌC VIỆN GIÁO DỤC VÀ ĐÀO TẠO QUỐC TẾ TP.HCM
                     <div>KHOA {{testdata?.dept_name}}</div>
                   </div>
                 </div>
@@ -122,16 +135,16 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="questData" style="display:block">
+              <div *ngIf="questData" style="display:block;">
                   <div style="-webkit-box-flex: 0;
                   -ms-flex: 0 0 50%;
                   flex: 0 0 50%;
                   max-width: 50%;
                   width: 50%;
                   float:left;
-                  border-right: solid;"  id="leftData">
+                  "  id="leftData">
                   <div *ngFor = "let questData of questData; let i = index;">
-                  <div *ngIf="questData && questData?.qnid %2 !=0">
+                  <div *ngIf="i%2 ==0" [ngClass]="{'borderEditLeft': leftData}">
                       <div><b>Câu {{i+1}}:</b> {{questData?.question}} 
                         <div>A. {{questData?.optiona}}</div>
                         <div>B. {{questData?.optionb}}</div>
@@ -148,7 +161,7 @@
                   width: 50%;
                   float:right;" id="rightData">
                    <div *ngFor = "let questData of questData; let i = index;">
-                  <div  *ngIf="questData && questData?.qnid %2 ==0">
+                  <div  *ngIf="i%2 !=0" [ngClass]="{'borderEditRight': rightData}">
                       <div  style="margin-left:3%;"><b>Câu {{i+1}}:</b> {{questData?.question}} 
                         <div>A. {{questData?.optiona}}</div>
                         <div>B. {{questData?.optionb}}</div>

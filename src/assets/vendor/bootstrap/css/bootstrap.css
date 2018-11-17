@@ -6166,8 +6166,12 @@ button.bg-dark:focus {
   border: 1px solid #dee2e6 !important;
 }
 
-.borderEdit {
+.borderEditLeft {
   border-right:solid !important;
+}
+
+.borderEditRight {
+  border-left:solid !important;
 }
 
 .border-top {
