@@ -18,10 +18,12 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router,private profile: ProfileServiceService, pnotifyService: PnotifyService) {
     this.pnotify = pnotifyService.getPNotify();
    }
+
   logout()
   {
     this.router.navigateByUrl('/login');
   }
+
   ProfileDetailInfo()
   {
     const token = localStorage.getItem('token');
@@ -53,7 +55,41 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
-  Edit()
+
+  private profileAfterEdit()
+  {
+    const token = localStorage.getItem('token');
+    if(token == '' || token == null ) 
+    {
+      this.logout();
+    }else{
+      if (token ) {
+        this.profile.Profile(token).then((profiledata) => {
+          
+          if (profiledata.json().status === 'successfully') {
+            this.ProfileDetail = profiledata.json().data
+            location.reload();
+          }
+          else if(profiledata.json().status === 'nodata')
+          {
+            this.pnotify.error({
+              text: "Không có dữ liệu !",
+              delay:1000
+            });    
+          }
+          else
+          {
+            this.logout(); 
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+    }
+  }
+
+  private Edit()
   {
     const token = localStorage.getItem('token');
     this.Profile={
@@ -75,7 +111,7 @@ export class ProfileComponent implements OnInit {
               text: "Sửa Thông Tin Thành Công !",
               delay:1000
             }); 
-            this.ProfileDetailInfo();
+            this.profileAfterEdit();
 
           }else if(data.json().status === 'fail')
           {
