@@ -148,7 +148,7 @@ export class ReportComponent implements OnInit {
         { data: "username" },  
         { data: "fullname" },
         { data: "testdate" ,render: function(data){
-          return moment(data).format("DD/MM/YYYY");
+          return moment(data).format("DD/MM/YYYY HH:mm:ss");
         }},   
         { data: "testname" },
         { data: "marks" },
