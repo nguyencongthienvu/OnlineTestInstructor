@@ -37,7 +37,7 @@ export class QuestionService {
   }
   GetAll(Test:Test,token)
   {
-    let url: string = `${this.url.BASE_URL}/question/findall`;
+    let url: string = `${this.url.BASE_URL}/question/findalladmin`;
     let headers: Headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': `${token}`
